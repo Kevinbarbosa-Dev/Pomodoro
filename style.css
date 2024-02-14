@@ -11,7 +11,7 @@ body.pomodoro-bg {
     background-image: url(imagens/GIF\ Wallpaper.gif);
     display: block;
     background-size: cover;
-
+    background-repeat: no-repeat;
 
 }
 
@@ -36,18 +36,21 @@ body.descansar-bg .pomodoro {
     color: #151732;
 }
 
+
+
 .pomodoro {
+    font-family:'Roboto' ;
     font-size: 24px;
     font-weight: bold;
     height: 42px;
     border: 0;
     outline: none;
-    background-color: transparent;
     box-shadow: 0px 0px 1px black;
     border-radius: 10px;
+    background-color: #260F26;
+    color: #FBD4A2;
 
 }
-
 
 
 
@@ -57,37 +60,41 @@ body.descansar-bg .pomodoro {
     background-color: transparent;
     box-shadow: 5px solid black;
 }
-
+/*todos os componeste do pomodoro*/
 .center {
-    text-align: center;
     display: flex;
-    height: 100vh;
+    justify-content: center;
     flex-direction: column;
-}
+    text-align: center;
+    height: 100vh;
+    overflow: hidden;
+  }
 
-.container {
+
+  .container {
     margin: auto;
+    
+  }
 
-
-
-}
-
-p {
+  .display {
+    margin:0;
+    display: flex;
+    flex-direction: column;
+  }
+  p {
     font-family: ds_digital;
     font-size: 74px;
     color: black
 }
 
 .itens {
+    display: flex;
+    align-items: center;
     margin: 40px;
     height: 62px;
 }
 
-.container>.itens {
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
-}
+
 
 
 
@@ -113,7 +120,7 @@ button:hover {
 
 .more-less {
     font-size: 36px;
-    color: #260F26
+    color: #260F26;
 }
 
 .play-pause {
@@ -121,13 +128,224 @@ button:hover {
     color: #260F26;
 }
 
-.pomodoro {
-    background-color: #260F26;
+  /*Componestes do TO-Do list*/
+  .menu{
+    display: flex;
+    justify-content:flex-end;
+    margin-right: 5px;
+}
+#close{
+    color:#260F26;
+    cursor: pointer;
+    display: flex;
+    justify-content: start;
+    margin-left: 10px;
+}
+.nav-button{
+    
+    border: 0;
+    cursor: pointer;
+    color:#260F26 ;
+}
+#overlay{
+    width: 0%;
+    height: 100%;
+    background-color: #260f2686;
+    z-index: 9;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: all 0.5s;
+}
+#task-container{
+    height: 440px;
+    overflow-y: auto;
+    border-radius: 5px;
+    border: 2px solid rebeccapurple;
+    transition: all 0.5s;
+}
+.text-resume{
+    text-align: start;
+    margin-left: 5px;
+}
+
+.lista{
+    width: 100%;
+    height: 350px;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+}
+  h3{
+    font-family:'Roboto' ;
+    font-size: 32px;
+    font-weight: bold;
     color: #FBD4A2;
 }
+  .overlay-content{
+    overflow-y: auto;
+    height: 100%;
+  }
+  .task{
+    display: grid;
+    grid-template-columns: 15% 75% 10%;
+  }
+  .task-content{
+    padding: 0px;
+    height: 150px;
+  }
+  .fa-square-check{
+    font-size: 32px;
+    padding: 10px;
+  }
+  /*arrumar o checkbox*/
+  .checkbox{
+    font-size: 32px;
+    padding: 10px;
+  }
+
+  .fa-trash{
+    font-size: 18px;
+  }
+  .container-todo{
+    height: 10vh;
+    background-color: #260F26;
+  }
+  
+  .to-do-box {
+    
+    border: 0;
+    display: flex;
+    align-items: end;
+    
+    
+  }
+  .to_do{
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    background-color: #1E2529;
+    border: none;
+    border-radius: 0px 0px 0px 5px;
+    font-size: 18px;
+    color: #F2C744;
+  }
+  
+
+  #addOk{ 
+    font-family: ds_digital;
+    padding: 11px;
+    border-radius:5px;
+    font-size: 18px;
+    border:1px solid rgba(255, 255, 255, 0.637);
+    background-color: #1E2529;
+    color: rgb(255, 255, 255);
+    display: none;
+  }
+.taskEdit{
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 24px;
+    color: yellow;
+    overflow: hidden;
+    text-align: start;
+}
+
+.task-resume{
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-note{
+    text-align: left;
+}
+.addnote{
+    font-family: 'Roboto';
+    font-size:16px ;
+    cursor: pointer;
+    border: 0;
+    background-color: #ccc;
+}
+
+.resume_container {
+    position: relative; /* Mudança para 'relative' para que o 'absolute' funcione corretamente */
+}
+
+.resume {
+    display: none;
+    height: 150px;
+    width: 95%; /* Ajuste para garantir que o textarea não seja coberto pelo botão */
+    font-family: 'Roboto';
+    font-size: 18px;
+    padding-right: 15px; /* Ajuste para garantir que o texto não seja coberto pelo botão */
+    border-radius: 5px;
+}
+
+#fecharNote {
+    color: black;
+    font-size: 18px;
+    position: absolute;
+    top: 5px;
+    right: 5px; /* Posicionamento no canto superior direito */
+    cursor: pointer;
+    display: none;
+}
+
+
 
 
 footer {
     font-family: ds_digital;
     color: #F28B30;
+    
+}
+.botao-audio{
+    display: flex;
+    justify-content: end;
+}
+.audio{
+    font-size: 36px;
+    color: #260F26
+}
+
+/*
+            <div class="botao-audio">
+                <button onclick="PlayAudio()"><i class="fa-solid fa-music"></i></button>
+                <audio id="myAudio" class="audio">
+                    <source src="audio/468407__onderwish__sci-fi-survival-dreamscape.mp3" type="audio/mp3">
+                </audio>
+            </div>
+*/
+@media (max-width:980px){
+    .to-do-box{
+        min-width:100px ;
+    }
+    .to_do{
+       
+        font-size: 12px;
+    }
+    .adicionar{
+        font-size: 14px;
+    }
+    #overlay{
+        width: 60%;
+    }
+}
+@media (max-width:700px) {
+    .display{
+        margin-left:0 ;
+        
+    }
+    #overlay{
+        width: 70%;
+    }
+}
+@media(max-width:600px){
+    .play-pause{
+        color:#DA6D38 ;
+    }
+    #overlay{
+        width: 80%;
+    }
 }
