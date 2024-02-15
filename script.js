@@ -37,12 +37,10 @@ function nota() {
     // botão note
     let taskContainer = document.getElementById('task-container');
     // container do overlay
-    let todo = document.getElementById('todo');
-    // input
     notebtn.style.display = 'none'
     resume.style.display = 'block'
     closeNote.style.display = 'block';
-    taskContainer.style.height = '280px';
+    taskContainer.style.height = '330px';
     resume.focus();
 
     closeNote.addEventListener('click', function () {
@@ -50,7 +48,7 @@ function nota() {
         closeNote.style.display = 'none';
         resume.value = "";
         notebtn.style.display = 'block';
-        taskContainer.style.height = '440px';
+        taskContainer.style.height = '480px';
     });
 
 }
@@ -122,24 +120,14 @@ function removeTask(taskDiv) {
 let timerInterval;
 let minutes = 0;
 let seconds = 0;
+let isRunning = false;
+let icon = document.getElementById('icon');
 document.body.classList.add("pomodoro-bg")
-
-let audio = document.getElementById('myAudio')
-function PlayAudio() {
-    if (audio.paused) {
-        audio.play();
-    } else {
-        audio.pause();
-
-    }
-}
-// se posivel colocar sons de chuva,fogueira ou game 8-bit
 
 function pomodoro() {
     minutes = 25;
     seconds = 0;
-    document.getElementById('addButton').disabled = false
-    document.getElementById('minusButton').disabled = false
+    enableButtons();
     document.body.classList.remove("descansar-bg");
     document.body.classList.add("pomodoro-bg")
     const paragraph = document.getElementById('tempo');
@@ -147,13 +135,10 @@ function pomodoro() {
     updateTimerDisplay();
 }
 
-
-
 function descansar() {
     minutes = 15;
     seconds = 0;
-    document.getElementById('addButton').disabled = false
-    document.getElementById('minusButton').disabled = false
+    enableButtons();
     document.body.classList.remove("pomodoro-bg");
     document.body.classList.add("descansar-bg");
     const paragraph = document.getElementById('tempo');
@@ -161,77 +146,95 @@ function descansar() {
     updateTimerDisplay();
 }
 
-
-
 function updateTimer() {
-    seconds--;
-    if (seconds < 0) {
-        if (minutes > 0) {
-            seconds = 59;
+    if (seconds > 0 || minutes > 0) {
+        if (seconds === 0) {
             minutes--;
-
-        } if (seconds < 0) {
-            seconds = 0;
-            document.getElementById('play').disabled = false;
-            document.getElementById('addButton').disabled = false;
-            document.getElementById('minusButton').disabled = false;
+            seconds = 59;
+        } else {
+            seconds--;
         }
-    }
-    if (minutes == 0 && seconds == 0) {
-        window.alert('Tempo esgotado');
+    } else {
         clearInterval(timerInterval);
-        document.getElementById('play').disabled = true;
+        isRunning = false;
+        icon.classList.remove('fa-pause');
+        icon.classList.add('fa-play');
     }
     updateTimerDisplay();
 }
-/*  let card = document.getElementById('addButton');
-  card.classList.toggle("animate__flip"); */
-function add() {
 
-    if (minutes < 120) {
+function add() {
+    if (!isRunning && minutes < 120) {
         minutes += 15;
         seconds = 0;
-
+        updateTimerDisplay();
     }
-    updateTimerDisplay();
 }
+
 function minus() {
-    if (minutes > 0) {
+    if (!isRunning && minutes > 0 ) {
         minutes -= 15;
         seconds = 0;
+        
+        if(minutes < 0){
+        minutes = 0;
     }
     updateTimerDisplay();
 }
-function pause() {
-    clearInterval(timerInterval);
-    document.getElementById('play').disabled = false
+}
+
+function updateTimerDisplay() {
+    const timerDisplay = document.getElementById('tempo');
+    timerDisplay.textContent = `${formatTime(minutes)}:${formatTime(seconds)}`;
+    document.title = ` teste - ${timerDisplay}`
+}
+
+function começar() {
+    if (isRunning) {
+        clearInterval(timerInterval);
+        icon.classList.remove('fa-pause');
+        icon.classList.add('fa-play');
+        enableButtons();
+    } else {
+        timerInterval = setInterval(updateTimer, 1000);
+        disableButtons();
+        icon.classList.remove('fa-play');
+        icon.classList.add('fa-pause');
+    }
+    isRunning = !isRunning;
 }
 
 function formatTime(time) {
     return time < 10 ? `0${time}` : time;
 }
-function updateTimerDisplay() {
-    const timerDisplay = document.getElementById('tempo');
-    timerDisplay.textContent = `${formatTime(minutes)}:${formatTime(seconds)}`;
-    document.title = ` teste - ${timerDisplay}`
 
-}
-function titleTimer() {
-
-
-
-}
-// Função para iniciar o timer
-function começar() {
-    timerInterval = setInterval(updateTimer, 1000);
-    let start = document.getElementById('play') ;
-    start.innerHTML = '<i class="fa-solid fa-pause"></i>'
-    
-    document.getElementById('play').disabled = true
-    document.getElementById('addButton').disabled = true
-    document.getElementById('minusButton').disabled = true
-
-
-
+function enableButtons() {
+    document.getElementById('addButton').disabled = false;
+    document.getElementById('minusButton').disabled = false;
 }
 
+function disableButtons() {
+    document.getElementById('addButton').disabled = true;
+    document.getElementById('minusButton').disabled = true;
+}
+
+/*
+function updateTimer() {
+    timerInterval = setInterval(() => {
+        if (seconds > 0 || minutes > 0) {
+            if (seconds === 0) {
+                seconds--;
+                minutes--;
+                seconds = 59;
+                document.getElementById('addButton').disabled = false;
+            document.getElementById('minusButton').disabled = false;
+            } 
+            updateTimerDisplay();
+        } else {
+            clearInterval(timerInterval);
+            isRunning = false;
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
+        }
+    }, 1000); 
+}*/
