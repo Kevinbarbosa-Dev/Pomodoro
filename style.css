@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+:root{
+    color: #E3B277, #121328;
+}
 @font-face {
     font-family: 'ds_digital';
     src: url(ds_digital/DS-DIGI.TTF) format('opentype');
@@ -135,7 +137,7 @@ button:hover {
     margin-right: 5px;
 }
 #close{
-    color:#260F26;
+    color:#FBD4A2;
     cursor: pointer;
     display: flex;
     justify-content: start;
@@ -148,9 +150,9 @@ button:hover {
     color:#260F26 ;
 }
 #overlay{
-    width: 0%;
+    width: 30%;
     height: 100%;
-    background-color: #260f2686;
+    background-color:#121328;
     z-index: 9;
     position: fixed;
     right: 0;
@@ -158,7 +160,7 @@ button:hover {
     transition: all 0.5s;
 }
 #task-container{
-    height: 480px;
+    height: 500px;
     overflow-y: auto;
     border-radius: 5px;
     border: 2px solid rebeccapurple;
@@ -186,6 +188,7 @@ button:hover {
   .overlay-content{
     overflow-y: auto;
     height: 100%;
+    
   }
   .task{
     display: grid;
@@ -210,7 +213,7 @@ button:hover {
   }
   .container-todo{
     height: 10vh;
-    background-color: #260F26;
+    
   }
   
   .to-do-box {
@@ -225,11 +228,11 @@ button:hover {
     width: 100%;
     padding: 10px;
     outline: none;
-    background-color: #1E2529;
+    background-color:#E3B277;
     border: none;
     border-radius: 0px 0px 0px 5px;
     font-size: 18px;
-    color: #F2C744;
+    color:#121328;
   }
   
 
@@ -239,8 +242,8 @@ button:hover {
     border-radius:5px;
     font-size: 18px;
     border:1px solid rgba(255, 255, 255, 0.637);
-    background-color: #1E2529;
-    color: rgb(255, 255, 255);
+    background-color:#121328;
+    color:#E3B277;
     display: none;
   }
 .taskEdit{
@@ -328,24 +331,16 @@ footer {
     .adicionar{
         font-size: 14px;
     }
-    #overlay{
-        width: 60%;
-    }
 }
 @media (max-width:700px) {
     .display{
         margin-left:0 ;
         
     }
-    #overlay{
-        width: 70%;
-    }
+
 }
 @media(max-width:600px){
     .play-pause{
         color:#DA6D38 ;
-    }
-    #overlay{
-        width: 80%;
     }
 }

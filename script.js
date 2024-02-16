@@ -11,9 +11,15 @@ document.addEventListener('DOMContentLoaded', function () {
     let menuBtn = document.getElementById('barra');
     let overlay = document.getElementById('overlay');
     let close = document.getElementById('close');
-
+    let media = window.matchMedia("(max-width: 600px)").matches;
     menuBtn.addEventListener('click', function () {
-        overlay.style.width = '30%';
+
+
+        if (media) {
+            overlay.style.width = '90%';
+        }else{
+            overlay.style.width = '30%';
+        }
     });
     close.addEventListener('click', function () {
         overlay.style.width = '0%';
@@ -76,7 +82,7 @@ function task() {
         checkbox.className = 'checkbox';
         checkbox.innerHTML = '<i class="fa-regular fa-square"></i>';
         checkbox.onclick = function () {
-           checkbox.innerHTML = '<i class="fa-solid fa-square-check"></i>'
+            checkbox.innerHTML = '<i class="fa-solid fa-square-check"></i>'
         };
 
         let taskResume = document.createElement('div');
@@ -85,7 +91,7 @@ function task() {
         let newTask = document.createElement('li');
         newTask.className = 'taskEdit';
         newTask.innerHTML = `<span>${taskText}</span>`;
-        
+
         let span = document.createElement('span');
         span.className = 'text-resume';
         span.textContent = resumeContent;
@@ -172,15 +178,15 @@ function add() {
 }
 
 function minus() {
-    if (!isRunning && minutes > 0 ) {
+    if (!isRunning && minutes > 0) {
         minutes -= 15;
         seconds = 0;
-        
-        if(minutes < 0){
-        minutes = 0;
+
+        if (minutes < 0) {
+            minutes = 0;
+        }
+        updateTimerDisplay();
     }
-    updateTimerDisplay();
-}
 }
 
 function updateTimerDisplay() {
