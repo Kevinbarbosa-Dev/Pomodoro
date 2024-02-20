@@ -11,20 +11,22 @@ document.addEventListener('DOMContentLoaded', function () {
     let menuBtn = document.getElementById('barra');
     let overlay = document.getElementById('overlay');
     let close = document.getElementById('close');
-    let media = window.matchMedia("(max-width: 600px)").matches;
+
     menuBtn.addEventListener('click', function () {
-
-
-        if (media) {
+        if (window.innerWidth <= 600) {
             overlay.style.width = '90%';
-        }else{
+        }else if(window.innerWidth <= 700){
+            overlay.style.width = '70%';
+        } else if (window.innerWidth <= 980) {
+            overlay.style.width = '50%';
+        } else {
             overlay.style.width = '30%';
         }
     });
+
     close.addEventListener('click', function () {
         overlay.style.width = '0%';
     });
-
 });
 // se input for apagado ou acrecentado e se textarea estiver on então textare continua on
 let inputText = document.getElementById('todo');
@@ -54,7 +56,7 @@ function nota() {
         closeNote.style.display = 'none';
         resume.value = "";
         notebtn.style.display = 'block';
-        taskContainer.style.height = '480px';
+        taskContainer.style.height = '440px';
     });
 
 }
@@ -72,50 +74,57 @@ document.getElementById('todo').addEventListener('keydown', (e) => {
 function task() {
     let taskText = inputText.value.trim();
     let resumeContent = document.getElementById('resumeId').value.trim();
+    let taskList = document.getElementById('tasks');
+    let taskDiv = document.createElement('div');
+    let checkbox = document.createElement('i');
+    let newTaskContainer = document.createElement('div'); // Criando a div que conterá a li e a div
+    let newTask = document.createElement('li');
+    let taskResume = document.createElement('div');
+    let span = document.createElement('span');
+    let remove = document.createElement('button');
 
-    if (taskText !== "" || resumeContent !== "") {
-        let taskList = document.getElementById('tasks');
-        let taskDiv = document.createElement('div');
-        taskDiv.className = 'task';
+    taskDiv.className = 'task';
+    checkbox.className = 'checkbox';
+    checkbox.innerHTML = '<i class="fa-regular fa-square"></i>';
+    checkbox.onclick = function () {
+        checkbox.innerHTML = '<i class="fa-solid fa-square-check"></i>'
+    };
 
-        let checkbox = document.createElement('i');
-        checkbox.className = 'checkbox';
-        checkbox.innerHTML = '<i class="fa-regular fa-square"></i>';
-        checkbox.onclick = function () {
-            checkbox.innerHTML = '<i class="fa-solid fa-square-check"></i>'
-        };
+    newTask.className = 'taskEdit';
+    newTask.innerHTML = `<span>${taskText}</span>`;
+    newTaskContainer.appendChild(newTask); // Adicionando a li à div container
+    newTaskContainer.style.display = 'flex'; // Configurando para display flex
+    newTaskContainer.style.alignItems = 'center'; // Alinhando ao centro
 
-        let taskResume = document.createElement('div');
-        taskResume.className = 'task-resume';
+    remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    remove.className = 'fa-trash';
+    remove.onclick = function () {
+        removeTask(taskDiv);
+    };
 
-        let newTask = document.createElement('li');
-        newTask.className = 'taskEdit';
-        newTask.innerHTML = `<span>${taskText}</span>`;
+    taskDiv.appendChild(checkbox);
+    taskDiv.appendChild(newTaskContainer); // Adicionando a div container ao taskDiv
 
-        let span = document.createElement('span');
+    if (resumeContent !== "") {
         span.className = 'text-resume';
         span.textContent = resumeContent;
-        taskResume.appendChild(newTask);
+        taskResume.className = 'task-resume';
+        newTaskContainer.style.alignItems="";
+        newTaskContainer.style.flexDirection="column";
         taskResume.appendChild(span);
-
-        let remove = document.createElement('button');
-        remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
-        remove.onclick = function () {
-            removeTask(taskDiv);
-        };
-
-        taskDiv.appendChild(checkbox);
         taskDiv.appendChild(taskResume);
-        taskDiv.appendChild(remove);
-        taskList.appendChild(taskDiv);
-        inputText.value = '';
-        document.getElementById('resumeId').value = ''; // Limpar o conteúdo do textarea
-        inputText.focus();
-        inputAtive(); // Atualizar visibilidade dos botões
-    } else {
-        document.getElementById('adicionar').disabled = false;
+        taskDiv.appendChild(newTaskContainer);
+        newTaskContainer.appendChild(taskResume);
     }
+
+    taskDiv.appendChild(remove);
+    taskList.appendChild(taskDiv);
+    inputText.value = '';
+    document.getElementById('resumeId').value = ''; // Limpar o conteúdo do textarea
+    inputText.focus();
+    inputAtive(); // Atualizar visibilidade dos botões
 }
+
 
 
 
@@ -192,7 +201,8 @@ function minus() {
 function updateTimerDisplay() {
     const timerDisplay = document.getElementById('tempo');
     timerDisplay.textContent = `${formatTime(minutes)}:${formatTime(seconds)}`;
-    document.title = ` teste - ${timerDisplay}`
+    document.title = `${formatTime(minutes)}:${formatTime(seconds)} - Pomodoro Timer`;
+    
 }
 
 function começar() {
@@ -224,23 +234,3 @@ function disableButtons() {
     document.getElementById('minusButton').disabled = true;
 }
 
-/*
-function updateTimer() {
-    timerInterval = setInterval(() => {
-        if (seconds > 0 || minutes > 0) {
-            if (seconds === 0) {
-                seconds--;
-                minutes--;
-                seconds = 59;
-                document.getElementById('addButton').disabled = false;
-            document.getElementById('minusButton').disabled = false;
-            } 
-            updateTimerDisplay();
-        } else {
-            clearInterval(timerInterval);
-            isRunning = false;
-            icon.classList.remove('fa-pause');
-            icon.classList.add('fa-play');
-        }
-    }, 1000); 
-}*/
