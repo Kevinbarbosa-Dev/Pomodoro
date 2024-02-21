@@ -1,12 +1,16 @@
 /*
-function openNav() {
-    document.getElementById('myNav').style.width = '30%';
-    document.querySelector('.overlay').style.display = 'block';
-}*/
-/*
-function closeNav() {
-    document.getElementById('overlay').style.width = '0%';
-}*/
+*/
+document.addEventListener('DOMContentLoaded', function () {
+    var button = document.getElementById('read-button');
+    button.addEventListener('click', function () {
+        var card = document.querySelector('.task-resume');
+
+        // Adicionar ou remover a classe 'active' para mostrar ou ocultar o restante do texto
+        card.classList.toggle('active');
+    });
+});
+
+
 document.addEventListener('DOMContentLoaded', function () {
     let menuBtn = document.getElementById('barra');
     let overlay = document.getElementById('overlay');
