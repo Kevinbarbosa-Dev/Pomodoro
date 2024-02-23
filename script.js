@@ -1,15 +1,18 @@
 /*
-*/
-document.addEventListener('DOMContentLoaded', function () {
-    var button = document.getElementById('read-button');
-    button.addEventListener('click', function () {
-        var card = document.querySelector('.task-resume');
 
-        // Adicionar ou remover a classe 'active' para mostrar ou ocultar o restante do texto
-        card.classList.toggle('active');
+document.addEventListener('DOMContentLoaded', function () {
+    let readButton = document.getElementById('angles');
+    let card = document.getElementById('task-resumeid');
+
+    readButton.addEventListener('click', function () {
+        card.classList.toggle('auto-height');
+        readButton.classList.toggle('fa-angles-up');
+        readButton.classList.toggle('fa-angles-down');
     });
 });
+*/
 
+// se clicar no botão down a altura do card fica em auto
 
 document.addEventListener('DOMContentLoaded', function () {
     let menuBtn = document.getElementById('barra');
@@ -19,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     menuBtn.addEventListener('click', function () {
         if (window.innerWidth <= 600) {
             overlay.style.width = '90%';
-        }else if(window.innerWidth <= 700){
+        } else if (window.innerWidth <= 700) {
             overlay.style.width = '70%';
         } else if (window.innerWidth <= 980) {
             overlay.style.width = '50%';
@@ -80,45 +83,62 @@ function task() {
     let resumeContent = document.getElementById('resumeId').value.trim();
     let taskList = document.getElementById('tasks');
     let taskDiv = document.createElement('div');
+    taskDiv.className = 'task';
     let checkbox = document.createElement('i');
+    checkbox.className = 'checkbox';
     let newTaskContainer = document.createElement('div'); // Criando a div que conterá a li e a div
     let newTask = document.createElement('li');
+    newTask.className = 'taskEdit';
     let taskResume = document.createElement('div');
     let span = document.createElement('span');
     let remove = document.createElement('button');
+    remove.className = 'fa-trash';
+    let angle = document.createElement('i')
 
-    taskDiv.className = 'task';
-    checkbox.className = 'checkbox';
+    // Checkbox
     checkbox.innerHTML = '<i class="fa-regular fa-square"></i>';
     checkbox.onclick = function () {
         checkbox.innerHTML = '<i class="fa-solid fa-square-check"></i>'
     };
 
-    newTask.className = 'taskEdit';
+
     newTask.innerHTML = `<span>${taskText}</span>`;
     newTaskContainer.appendChild(newTask); // Adicionando a li à div container
-    newTaskContainer.style.display = 'flex'; // Configurando para display flex
-    newTaskContainer.style.alignItems = 'center'; // Alinhando ao centro
+
 
     remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
-    remove.className = 'fa-trash';
+
     remove.onclick = function () {
         removeTask(taskDiv);
     };
+// altura padrão é auto, mas se passar de 135px o conteúdo do card fica parcial o botão read more aparece 
 
     taskDiv.appendChild(checkbox);
     taskDiv.appendChild(newTaskContainer); // Adicionando a div container ao taskDiv
-
+    newTaskContainer.style.alignItems = "center";
     if (resumeContent !== "") {
         span.className = 'text-resume';
         span.textContent = resumeContent;
         taskResume.className = 'task-resume';
-        newTaskContainer.style.alignItems="";
-        newTaskContainer.style.flexDirection="column";
+        angle.innerHTML = '<i class="fa-solid fa-angles-down"></i>';
+        angle.className = 'angle'
+        
+        if (span.offsetHeight >= 135) {
+            // Se a altura exceder 135px, aplique a classe 'text-resume'
+            taskResume.classList.add('text-resume');
+            span.style.height =  '135px';
+        } else {
+            // Caso contrário, aplique a classe 'task-resume'
+            taskResume.classList.remove('text-resume');
+            taskResume.classList.add('task-resume'); // Garanta que 'task-resume' esteja presente para redefinir os estilos
+        }
+        newTaskContainer.classList.toggle('containerTaskNew');
+        taskDiv.classList.toggle('divResume')
         taskResume.appendChild(span);
         taskDiv.appendChild(taskResume);
         taskDiv.appendChild(newTaskContainer);
         newTaskContainer.appendChild(taskResume);
+        newTaskContainer.appendChild(angle);
     }
 
     taskDiv.appendChild(remove);
@@ -128,7 +148,29 @@ function task() {
     inputText.focus();
     inputAtive(); // Atualizar visibilidade dos botões
 }
-
+/*
+<div class="task">
+                            <i class="checkbox">
+                            <i class="fa-regular fa-square"></i></i>
+                            <div style="    display: flex;
+                            flex-direction: column;
+                            text-align: left;">
+                                <li class="taskEdit">
+                                    <span>teste</span></li>
+                                <div class="task-resume" id="task-resumeid">
+                                    <span class="text-resume">Lorem Ipsum is simply dummy text of
+                                        the printing and typesetting industry. Lorem Ipsum has been the industry's
+                                        standard dummy text ever since the 1500s, when an unknown printer took a galley
+                                        of type and scrambled it to make a type specimen book. It has survived not only
+                                        five centuries, but also the leap into electronic typesetting, remaining
+                                        essentially unchanged. It was popularised in the 1960s with the release of
+                                        Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                                        publishing software like Aldus PageMaker including versions of Lorem
+                                        Ipsum.</span></div>
+                                        <button id="read-button"><i class="fa-solid fa-angles-down" id="angles" style="font-size: 24px;;"></i></button>
+                            </div><button class="fa-trash"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+*/
 
 
 
@@ -206,7 +248,7 @@ function updateTimerDisplay() {
     const timerDisplay = document.getElementById('tempo');
     timerDisplay.textContent = `${formatTime(minutes)}:${formatTime(seconds)}`;
     document.title = `${formatTime(minutes)}:${formatTime(seconds)} - Pomodoro Timer`;
-    
+
 }
 
 function começar() {
