@@ -111,7 +111,7 @@ function task() {
     remove.onclick = function () {
         removeTask(taskDiv);
     };
-// altura padrão é auto, mas se passar de 135px o conteúdo do card fica parcial o botão read more aparece 
+    // altura padrão é auto, mas se passar de 135px o conteúdo do card fica parcial o botão read more aparece 
 
     taskDiv.appendChild(checkbox);
     taskDiv.appendChild(newTaskContainer); // Adicionando a div container ao taskDiv
@@ -122,16 +122,10 @@ function task() {
         taskResume.className = 'task-resume';
         angle.innerHTML = '<i class="fa-solid fa-angles-down"></i>';
         angle.className = 'angle'
-        
-        if (span.offsetHeight >= 135) {
-            // Se a altura exceder 135px, aplique a classe 'text-resume'
-            taskResume.classList.add('text-resume');
-            span.style.height =  '135px';
-        } else {
-            // Caso contrário, aplique a classe 'task-resume'
-            taskResume.classList.remove('text-resume');
-            taskResume.classList.add('task-resume'); // Garanta que 'task-resume' esteja presente para redefinir os estilos
+        if (span.offsetHeight <= 135) {
+            span.style.maxHeight = 'auto';
         }
+
         newTaskContainer.classList.toggle('containerTaskNew');
         taskDiv.classList.toggle('divResume')
         taskResume.appendChild(span);
@@ -148,6 +142,8 @@ function task() {
     inputText.focus();
     inputAtive(); // Atualizar visibilidade dos botões
 }
+
+
 /*
 <div class="task">
                             <i class="checkbox">

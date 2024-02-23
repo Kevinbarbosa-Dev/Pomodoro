@@ -174,7 +174,7 @@ button:hover {
     overflow: hidden;
     position: relative;
     font-size: 18px;
-    height: 135px;
+    max-height: 135px;
     display: flex;
 }
 
@@ -306,9 +306,15 @@ button:hover {
     align-items: start;
 }
 .angle{
+    display: block;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     font-size: 24px;
+}
+.angle:hover{
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.425);
 }
 .btn-note{
     text-align: left;
