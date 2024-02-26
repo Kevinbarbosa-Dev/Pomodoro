@@ -43,7 +43,6 @@ function inputAtive() {
     adicionar.style.display = inputText.value.trim() !== "" ? "block" : "none";
 }
 function nota() {
-
     let resume = document.getElementById('resumeId');
     // textarea
     let closeNote = document.getElementById('fecharNote');
@@ -65,18 +64,13 @@ function nota() {
         notebtn.style.display = 'block';
         taskContainer.style.height = '440px';
     });
-
 }
-
-
-
 
 document.getElementById('todo').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         task();
     }
 });
-
 
 function task() {
     let taskText = inputText.value.trim();
@@ -90,58 +84,70 @@ function task() {
     let newTask = document.createElement('li');
     newTask.className = 'taskEdit';
     let taskResume = document.createElement('div');
+    taskResume.className = 'task-resume';
     let span = document.createElement('span');
+    span.className = 'text-resume';
+    span.textContent = resumeContent;
     let remove = document.createElement('button');
     remove.className = 'fa-trash';
-    let angle = document.createElement('i')
-
+    let angle = document.createElement('button')
+    angle.className = 'angle';
+    angle.innerHTML = '<i class="fa-solid fa-angles-down"></i>';
+    
     // Checkbox
     checkbox.innerHTML = '<i class="fa-regular fa-square"></i>';
     checkbox.onclick = function () {
         checkbox.innerHTML = '<i class="fa-solid fa-square-check"></i>'
     };
 
-
     newTask.innerHTML = `<span>${taskText}</span>`;
     newTaskContainer.appendChild(newTask); // Adicionando a li à div container
 
-
     remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
-
     remove.onclick = function () {
         removeTask(taskDiv);
     };
-    // altura padrão é auto, mas se passar de 135px o conteúdo do card fica parcial o botão read more aparece 
+    
+    // Adicionando evento para expandir ou contrair a descrição da tarefa
+    angle.onclick = function () {
+        taskResume.classList.toggle('auto-height');
+        angle.querySelector('i').classList.toggle('fa-angles-down');
+        angle.querySelector('i').classList.toggle('fa-angles-up');
+    };
 
-    taskDiv.appendChild(checkbox);
-    taskDiv.appendChild(newTaskContainer); // Adicionando a div container ao taskDiv
-    newTaskContainer.style.alignItems = "center";
+    // Verificar se a descrição é maior que 135px
+    if (span.offsetHeight > 135) {
+        taskResume.classList.add('auto-height');
+        angle.querySelector('i').classList.toggle('fa-angles-up');
+    }
+
     if (resumeContent !== "") {
-        span.className = 'text-resume';
-        span.textContent = resumeContent;
-        taskResume.className = 'task-resume';
-        angle.innerHTML = '<i class="fa-solid fa-angles-down"></i>';
-        angle.className = 'angle'
-        if (span.offsetHeight <= 135) {
-            span.style.maxHeight = 'auto';
-        }
-
-        newTaskContainer.classList.toggle('containerTaskNew');
-        taskDiv.classList.toggle('divResume')
         taskResume.appendChild(span);
-        taskDiv.appendChild(taskResume);
-        taskDiv.appendChild(newTaskContainer);
         newTaskContainer.appendChild(taskResume);
         newTaskContainer.appendChild(angle);
     }
+    
+    newTaskContainer.style.alignItems = "center";
 
+    // Adicionando classes aos elementos
+    newTaskContainer.classList.add('containerTaskNew');
+    taskDiv.classList.add('divResume');
+
+    // Adicionando elementos ao taskDiv
+    taskDiv.appendChild(checkbox);
+    taskDiv.appendChild(newTaskContainer);
     taskDiv.appendChild(remove);
     taskList.appendChild(taskDiv);
+
+    // Limpar campos
     inputText.value = '';
-    document.getElementById('resumeId').value = ''; // Limpar o conteúdo do textarea
+    document.getElementById('resumeId').value = '';
     inputText.focus();
     inputAtive(); // Atualizar visibilidade dos botões
 }
+
+// Função para remover uma tarefa
+
 
 
 /*

@@ -174,8 +174,10 @@ button:hover {
     overflow: hidden;
     position: relative;
     font-size: 18px;
-    max-height: 135px;
-    display: flex;
+    
+}
+text-height{
+    
 }
 
 .lista{
@@ -280,20 +282,20 @@ button:hover {
 
 
 .task-resume{
-    height: auto;
+    max-height: 135px;
     overflow: hidden;
     position: relative;
 }
-.task-resume::before{
+.text-resume::before{
     content: '';
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 100px;
+    height: 50px;
     background:linear-gradient(transparent,#12132870);
 }
 .auto-height{
-    height: auto;
+    max-height: none !important;
 }
 .containerTaskNew{
     
@@ -305,17 +307,17 @@ button:hover {
     display: flex;
     align-items: start;
 }
-.angle{
-    display: block;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
+
+.angle {
+    width: 100%;
     font-size: 24px;
 }
-.angle:hover{
+
+.angle:hover {
     cursor: pointer;
     color: rgba(0, 0, 0, 0.425);
 }
+
 .btn-note{
     text-align: left;
 }
