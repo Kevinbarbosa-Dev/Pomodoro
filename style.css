@@ -139,9 +139,10 @@ button:hover {
 #close{
     color:#FBD4A2;
     cursor: pointer;
-    display: flex;
-    justify-content: start;
     margin-left: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 .nav-button{
     
@@ -163,21 +164,34 @@ button:hover {
     height: 440px;
     overflow-y: auto;
     border-radius: 5px;
-    border: 2px solid rebeccapurple;
     transition: all 0.5s;
 }
+#task-container::-webkit-scrollbar {
+    width: 10px; /* Largura do scroll */
+}
+
+#task-container::-webkit-scrollbar-track {
+    background: #1C1B40; /* Cor de fundo do track (parte não preenchida) */
+}
+
+#task-container::-webkit-scrollbar-thumb {
+    background: #E3B277; /* Cor do thumb (parte preenchida) */
+    border-radius: 5px; /* Borda arredondada do thumb */
+}
+
+#task-container::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Cor do thumb ao passar o mouse por cima */
+}
 .text-resume{
+    margin: 0px;
     font-family: 'Roboto';
     font-weight: 300;
     color:yellow;
     font-size: 18px;
     overflow: hidden;
     position: relative;
-    font-size: 18px;
-    
-}
-text-height{
-    
+    max-height: 135px;
+    transition: max-height 0.3s ease;
 }
 
 .lista{
@@ -193,11 +207,19 @@ text-height{
     font-size: 32px;
     font-weight: bold;
     color: #FBD4A2;
+    margin: 0px;
 }
   .overlay-content{
     overflow-y: auto;
     height: 100%;
     
+  }
+  .overlay-background{
+    background-image: url(imagens//Tumblr.gif);
+    display: block;
+    background-size: cover;
+    padding: 46px;
+    position: relative;
   }
   .task{
     display: flex;
@@ -232,9 +254,17 @@ text-height{
     padding: 10px;
   }
 
-  .fa-trash{
+  .trash{
     font-size: 18px;
     margin-left: auto;
+    cursor: pointer;
+  }
+  .trash-resume{
+    margin-top:15px;
+    font-size: 18px;
+  }
+  .trash:hover{
+    cursor: pointer;
   }
   .container-todo{
     height: 10vh;
@@ -278,13 +308,16 @@ text-height{
     color: yellow;
     overflow: hidden;
     text-align: start;
+    margin-top:10px;
 }
 
 
 .task-resume{
-    max-height: 135px;
-    overflow: hidden;
     position: relative;
+}
+
+.task-resumeOn{
+    max-height: 135px;
 }
 .text-resume::before{
     content: '';
@@ -298,19 +331,23 @@ text-height{
     max-height: none !important;
 }
 .containerTaskNew{
-    
-    margin-bottom: 10px;
     text-align: left;
     width: 100%;
 }
 .divResume{
     display: flex;
+    align-items: center;
+}
+.divResumeStart{
+    display: flex;
     align-items: start;
 }
 
 .angle {
+    display: none;
     width: 100%;
     font-size: 24px;
+    transition: all 0.5s;
 }
 
 .angle:hover {

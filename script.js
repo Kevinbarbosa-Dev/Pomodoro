@@ -34,7 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
     close.addEventListener('click', function () {
         overlay.style.width = '0%';
     });
+
 });
+
 // se input for apagado ou acrecentado e se textarea estiver on então textare continua on
 let inputText = document.getElementById('todo');
 
@@ -80,20 +82,20 @@ function task() {
     taskDiv.className = 'task';
     let checkbox = document.createElement('i');
     checkbox.className = 'checkbox';
-    let newTaskContainer = document.createElement('div'); // Criando a div que conterá a li e a div
+    let newTaskContainer = document.createElement('div');
     let newTask = document.createElement('li');
     newTask.className = 'taskEdit';
     let taskResume = document.createElement('div');
     taskResume.className = 'task-resume';
-    let span = document.createElement('span');
-    span.className = 'text-resume';
+    let span = document.createElement('p');
+    span.classList.add("text-resume");
     span.textContent = resumeContent;
-    let remove = document.createElement('button');
-    remove.className = 'fa-trash';
     let angle = document.createElement('button')
-    angle.className = 'angle';
     angle.innerHTML = '<i class="fa-solid fa-angles-down"></i>';
+    angle.classList.add("angle");
+
     
+
     // Checkbox
     checkbox.innerHTML = '<i class="fa-regular fa-square"></i>';
     checkbox.onclick = function () {
@@ -101,37 +103,49 @@ function task() {
     };
 
     newTask.innerHTML = `<span>${taskText}</span>`;
-    newTaskContainer.appendChild(newTask); // Adicionando a li à div container
+    newTaskContainer.appendChild(newTask);
 
+    let remove = document.createElement('button');
     remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
-    remove.onclick = function () {
+
+    remove.addEventListener('click', function () {
         removeTask(taskDiv);
-    };
-    
-    // Adicionando evento para expandir ou contrair a descrição da tarefa
+    });
     angle.onclick = function () {
-        taskResume.classList.toggle('auto-height');
-        angle.querySelector('i').classList.toggle('fa-angles-down');
-        angle.querySelector('i').classList.toggle('fa-angles-up');
-    };
-
-    // Verificar se a descrição é maior que 135px
-    if (span.offsetHeight > 135) {
-        taskResume.classList.add('auto-height');
-        angle.querySelector('i').classList.toggle('fa-angles-up');
+        if (span.classList.contains("expanded")) {
+            span.classList.remove("expanded");
+            span.style.maxHeight = "135px"; // Recolhe o texto
+            angle.innerHTML = '<i class="fa-solid fa-angles-down"></i>'; // Altera o ícone para baixo
+        } else {
+            span.classList.add("expanded");
+            span.style.maxHeight = span.scrollHeight + "px"; // Expande o texto
+            angle.innerHTML = '<i class="fa-solid fa-angles-up"></i>'; // Altera o ícone para cima
+        }
     }
-
+    
     if (resumeContent !== "") {
         taskResume.appendChild(span);
         newTaskContainer.appendChild(taskResume);
-        newTaskContainer.appendChild(angle);
+        taskDiv.classList.toggle('divResumeStart');
+        remove.classList.toggle('trash-resume');
+    } else {
+        taskDiv.classList.toggle('divResume');
+        remove.classList.toggle('trash');
     }
+
+    if (resumeContent.length > 135) {
+        taskResume.appendChild(angle);
+        angle.style.display = 'block';
+    }
+
+
     
+
+
     newTaskContainer.style.alignItems = "center";
 
     // Adicionando classes aos elementos
     newTaskContainer.classList.add('containerTaskNew');
-    taskDiv.classList.add('divResume');
 
     // Adicionando elementos ao taskDiv
     taskDiv.appendChild(checkbox);
@@ -143,42 +157,12 @@ function task() {
     inputText.value = '';
     document.getElementById('resumeId').value = '';
     inputText.focus();
-    inputAtive(); // Atualizar visibilidade dos botões
+    inputAtive();
 }
-
-// Função para remover uma tarefa
-
-
-
-/*
-<div class="task">
-                            <i class="checkbox">
-                            <i class="fa-regular fa-square"></i></i>
-                            <div style="    display: flex;
-                            flex-direction: column;
-                            text-align: left;">
-                                <li class="taskEdit">
-                                    <span>teste</span></li>
-                                <div class="task-resume" id="task-resumeid">
-                                    <span class="text-resume">Lorem Ipsum is simply dummy text of
-                                        the printing and typesetting industry. Lorem Ipsum has been the industry's
-                                        standard dummy text ever since the 1500s, when an unknown printer took a galley
-                                        of type and scrambled it to make a type specimen book. It has survived not only
-                                        five centuries, but also the leap into electronic typesetting, remaining
-                                        essentially unchanged. It was popularised in the 1960s with the release of
-                                        Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-                                        publishing software like Aldus PageMaker including versions of Lorem
-                                        Ipsum.</span></div>
-                                        <button id="read-button"><i class="fa-solid fa-angles-down" id="angles" style="font-size: 24px;;"></i></button>
-                            </div><button class="fa-trash"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-*/
-
-
-
 function removeTask(taskDiv) {
     taskDiv.remove();
 }
+
 
 let timerInterval;
 let minutes = 0;
