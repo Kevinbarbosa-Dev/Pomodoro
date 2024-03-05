@@ -10,6 +10,16 @@ document.addEventListener('DOMContentLoaded', function () {
         readButton.classList.toggle('fa-angles-down');
     });
 });
+
+<div class="btn-note">
+                        <button id="note" class="addnote" onclick="nota()">
+                            <i class="fa-solid fa-circle-plus"></i>Note</button>
+
+                        <div class="resume_container">
+                            <textarea class="resume" id="resumeId"></textarea>
+                            <span id="fecharNote" class="fa-solid fa-xmark"></span>
+                        </div>
+                    </div>
 */
 
 // se clicar no botão down a altura do card fica em auto
@@ -18,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let menuBtn = document.getElementById('barra');
     let overlay = document.getElementById('overlay');
     let close = document.getElementById('close');
-
+    
+    
     menuBtn.addEventListener('click', function () {
         if (window.innerWidth <= 600) {
             overlay.style.width = '90%';
@@ -34,39 +45,44 @@ document.addEventListener('DOMContentLoaded', function () {
     close.addEventListener('click', function () {
         overlay.style.width = '0%';
     });
-
+    
 });
 
 // se input for apagado ou acrecentado e se textarea estiver on então textare continua on
 let inputText = document.getElementById('todo');
 
 function inputAtive() {
-    let adicionar = document.getElementById('addOk')
+    let adicionar = document.getElementById('addOk');
     adicionar.style.display = inputText.value.trim() !== "" ? "block" : "none";
 }
+// JavaScript
 function nota() {
-    let resume = document.getElementById('resumeId');
-    // textarea
-    let closeNote = document.getElementById('fecharNote');
-    // botão fechar textarea
-    let notebtn = document.getElementById('note');
-    // botão note
-    let taskContainer = document.getElementById('task-container');
-    // container do overlay
-    notebtn.style.display = 'none'
-    resume.style.display = 'block'
-    closeNote.style.display = 'block';
-    taskContainer.style.height = '330px';
-    resume.focus();
+    let modal = document.getElementById('modal');
+    let closeModal = document.getElementById('fecharModal');
+    let modalTodo = document.getElementById('modalTodo')
+    let modalText = document.getElementById('resumeId');
+    let adicionar = document.getElementById('addOk');
+    let addModal = document.getElementById('addModal');
+        modal.style.display = "flex";
+       inputText.value = "";
+       adicionar.style.display = "none";
+       addModal.addEventListener('click', function (){
+        task();
+        modalTodo.value = "";
+       }) 
 
-    closeNote.addEventListener('click', function () {
-        resume.style.display = 'none';
-        closeNote.style.display = 'none';
-        resume.value = "";
-        notebtn.style.display = 'block';
-        taskContainer.style.height = '440px';
+        
+   
+
+    closeModal.addEventListener('click', function () {
+        modal.style.display = 'none';
+        inputText.value = "";
+        modalText.value = "";
+        
+
     });
 }
+
 
 document.getElementById('todo').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
@@ -74,7 +90,9 @@ document.getElementById('todo').addEventListener('keydown', (e) => {
     }
 });
 
+
 function task() {
+    let modalTodo = document.getElementById('modalTodo').value;
     let taskText = inputText.value.trim();
     let resumeContent = document.getElementById('resumeId').value.trim();
     let taskList = document.getElementById('tasks');
@@ -100,17 +118,24 @@ function task() {
     checkbox.innerHTML = '<i class="fa-regular fa-square"></i>';
     checkbox.onclick = function () {
         checkbox.innerHTML = '<i class="fa-solid fa-square-check"></i>'
+        checkbox.style.padding = '0'
     };
-
-    newTask.innerHTML = `<span>${taskText}</span>`;
+    if(taskText !== ""){
+        
+        newTask.innerHTML = `<span>${taskText}</span>`;
+    }else{
+       newTask.innerHTML = `<span>${modalTodo}</span>`; 
+    }
+    
+    
     newTaskContainer.appendChild(newTask);
 
     let remove = document.createElement('button');
     remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
 
-    remove.addEventListener('click', function () {
+    remove.onclick =  function () {
         removeTask(taskDiv);
-    });
+    };
     angle.onclick = function () {
         if (span.classList.contains("expanded")) {
             span.classList.remove("expanded");
@@ -122,7 +147,7 @@ function task() {
             angle.innerHTML = '<i class="fa-solid fa-angles-up"></i>'; // Altera o ícone para cima
         }
     }
-    
+    taskDiv.classList.toggle('img-banner')
     if (resumeContent !== "") {
         taskResume.appendChild(span);
         newTaskContainer.appendChild(taskResume);
@@ -131,13 +156,14 @@ function task() {
     } else {
         taskDiv.classList.toggle('divResume');
         remove.classList.toggle('trash');
+        newTask.style.margin = '0'
+
     }
 
     if (resumeContent.length > 135) {
         taskResume.appendChild(angle);
         angle.style.display = 'block';
     }
-
 
     
 
