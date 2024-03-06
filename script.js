@@ -1,28 +1,4 @@
-/*
 
-document.addEventListener('DOMContentLoaded', function () {
-    let readButton = document.getElementById('angles');
-    let card = document.getElementById('task-resumeid');
-
-    readButton.addEventListener('click', function () {
-        card.classList.toggle('auto-height');
-        readButton.classList.toggle('fa-angles-up');
-        readButton.classList.toggle('fa-angles-down');
-    });
-});
-
-<div class="btn-note">
-                        <button id="note" class="addnote" onclick="nota()">
-                            <i class="fa-solid fa-circle-plus"></i>Note</button>
-
-                        <div class="resume_container">
-                            <textarea class="resume" id="resumeId"></textarea>
-                            <span id="fecharNote" class="fa-solid fa-xmark"></span>
-                        </div>
-                    </div>
-*/
-
-// se clicar no botão down a altura do card fica em auto
 
 document.addEventListener('DOMContentLoaded', function () {
     let menuBtn = document.getElementById('barra');
@@ -40,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             overlay.style.width = '30%';
         }
-    });
+    });;
 
     close.addEventListener('click', function () {
         overlay.style.width = '0%';
@@ -55,7 +31,7 @@ function inputAtive() {
     let adicionar = document.getElementById('addOk');
     adicionar.style.display = inputText.value.trim() !== "" ? "block" : "none";
 }
-// JavaScript
+
 function nota() {
     let modal = document.getElementById('modal');
     let closeModal = document.getElementById('fecharModal');
@@ -71,13 +47,18 @@ function nota() {
         modalTodo.value = "";
        }) 
 
-        
+       document.addEventListener('click', function (event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
    
 
     closeModal.addEventListener('click', function () {
         modal.style.display = 'none';
         inputText.value = "";
         modalText.value = "";
+        modalTodo.value = "";
         
 
     });
@@ -91,100 +72,92 @@ document.getElementById('todo').addEventListener('keydown', (e) => {
 });
 
 
+
 function task() {
     let modalTodo = document.getElementById('modalTodo').value;
     let taskText = inputText.value.trim();
     let resumeContent = document.getElementById('resumeId').value.trim();
-    let taskList = document.getElementById('tasks');
-    let taskDiv = document.createElement('div');
-    taskDiv.className = 'task';
-    let checkbox = document.createElement('i');
-    checkbox.className = 'checkbox';
-    let newTaskContainer = document.createElement('div');
-    let newTask = document.createElement('li');
-    newTask.className = 'taskEdit';
-    let taskResume = document.createElement('div');
-    taskResume.className = 'task-resume';
-    let span = document.createElement('p');
-    span.classList.add("text-resume");
-    span.textContent = resumeContent;
-    let angle = document.createElement('button')
-    angle.innerHTML = '<i class="fa-solid fa-angles-down"></i>';
-    angle.classList.add("angle");
 
-    
+    // Verificar se há texto na tarefa ou na entrada de notas
+    if (taskText !== "" || resumeContent !== "") {
+        let taskList = document.getElementById('tasks');
+        let taskDiv = document.createElement('div');
+        taskDiv.className = 'task';
+        let checkbox = document.createElement('i');
+        checkbox.className = 'checkbox';
+        let newTaskContainer = document.createElement('div');
+        let newTask = document.createElement('li');
+        newTask.className = 'taskEdit';
+        let taskResume = document.createElement('div');
+        taskResume.className = 'task-resume';
+        let span = document.createElement('p');
+        span.classList.add("text-resume");
+        span.textContent = resumeContent;
+        let angle = document.createElement('button');
+        angle.innerHTML = '<i class="fa-solid fa-angles-down"></i>';
+        angle.classList.add("angle");
 
-    // Checkbox
-    checkbox.innerHTML = '<i class="fa-regular fa-square"></i>';
-    checkbox.onclick = function () {
-        checkbox.innerHTML = '<i class="fa-solid fa-square-check"></i>'
-        checkbox.style.padding = '0'
-    };
-    if(taskText !== ""){
-        
-        newTask.innerHTML = `<span>${taskText}</span>`;
-    }else{
-       newTask.innerHTML = `<span>${modalTodo}</span>`; 
-    }
-    
-    
-    newTaskContainer.appendChild(newTask);
+        // Checkbox
+        checkbox.innerHTML = '<i class="fa-regular fa-square"></i>';
+        checkbox.onclick = function () {
+            checkbox.innerHTML = '<i class="fa-solid fa-square-check"></i>';
+            checkbox.style.padding = '0';
+        };
 
-    let remove = document.createElement('button');
-    remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        newTask.innerHTML = `<span>${taskText !== "" ? taskText : modalTodo}</span>`;
 
-    remove.onclick =  function () {
-        removeTask(taskDiv);
-    };
-    angle.onclick = function () {
-        if (span.classList.contains("expanded")) {
-            span.classList.remove("expanded");
-            span.style.maxHeight = "135px"; // Recolhe o texto
-            angle.innerHTML = '<i class="fa-solid fa-angles-down"></i>'; // Altera o ícone para baixo
+        newTaskContainer.appendChild(newTask);
+
+        let remove = document.createElement('button');
+        remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
+
+        remove.onclick = function () {
+            removeTask(taskDiv);
+        };
+        angle.onclick = function () {
+            span.classList.toggle("expanded");
+            span.style.maxHeight = span.classList.contains("expanded") ? span.scrollHeight + "px" : "135px";
+            angle.innerHTML = `<i class="fa-solid fa-angles-${span.classList.contains("expanded") ? "up" : "down"}"></i>`;
+        };
+
+        if (resumeContent !== "") {
+            taskResume.appendChild(span);
+            newTaskContainer.appendChild(taskResume);
+            taskDiv.classList.toggle('divResumeStart');
+            remove.classList.toggle('trash-resume');
         } else {
-            span.classList.add("expanded");
-            span.style.maxHeight = span.scrollHeight + "px"; // Expande o texto
-            angle.innerHTML = '<i class="fa-solid fa-angles-up"></i>'; // Altera o ícone para cima
+            taskDiv.classList.toggle('divResume');
+            remove.classList.toggle('trash');
+            newTask.style.margin = '0';
+
         }
-    }
-    taskDiv.classList.toggle('img-banner')
-    if (resumeContent !== "") {
-        taskResume.appendChild(span);
-        newTaskContainer.appendChild(taskResume);
-        taskDiv.classList.toggle('divResumeStart');
-        remove.classList.toggle('trash-resume');
+
+        if (resumeContent.length > 135) {
+            taskResume.appendChild(angle);
+            angle.style.display = 'block';
+        }
+
+        newTaskContainer.style.alignItems = "center";
+
+        // Adicionando classes aos elementos
+        newTaskContainer.classList.add('containerTaskNew');
+
+        // Adicionando elementos ao taskDiv
+        taskDiv.appendChild(checkbox);
+        taskDiv.appendChild(newTaskContainer);
+        taskDiv.appendChild(remove);
+        taskList.appendChild(taskDiv);
+
+        // Limpar campos
+        inputText.value = '';
+        document.getElementById('resumeId').value = '';
+        inputText.focus();
+        inputAtive();
     } else {
-        taskDiv.classList.toggle('divResume');
-        remove.classList.toggle('trash');
-        newTask.style.margin = '0'
-
+        return;
     }
-
-    if (resumeContent.length > 135) {
-        taskResume.appendChild(angle);
-        angle.style.display = 'block';
-    }
-
-    
-
-
-    newTaskContainer.style.alignItems = "center";
-
-    // Adicionando classes aos elementos
-    newTaskContainer.classList.add('containerTaskNew');
-
-    // Adicionando elementos ao taskDiv
-    taskDiv.appendChild(checkbox);
-    taskDiv.appendChild(newTaskContainer);
-    taskDiv.appendChild(remove);
-    taskList.appendChild(taskDiv);
-
-    // Limpar campos
-    inputText.value = '';
-    document.getElementById('resumeId').value = '';
-    inputText.focus();
-    inputAtive();
 }
+
 function removeTask(taskDiv) {
     taskDiv.remove();
 }
