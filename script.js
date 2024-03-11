@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let overlay = document.getElementById('overlay');
     let close = document.getElementById('close');
     
-    
+    // se tela estiver em 600px, quando clicar em openModal o overlay fecha
     menuBtn.addEventListener('click', function () {
         if (window.innerWidth <= 600) {
             overlay.style.width = '90%';
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
 });
 
-// se input for apagado ou acrecentado e se textarea estiver on então textare continua on
+// criar bptão que abre opções, quando uma opção for selecionada ela é atribuida na task 
 let inputText = document.getElementById('todo');
 
 function inputAtive() {
@@ -36,7 +36,7 @@ function nota() {
     let modal = document.getElementById('modal');
     let closeModal = document.getElementById('fecharModal');
     let modalTodo = document.getElementById('modalTodo')
-    let modalText = document.getElementById('resumeId');
+    let modalText = document.getElementById('notasText');
     let adicionar = document.getElementById('addOk');
     let addModal = document.getElementById('addModal');
         modal.style.display = "flex";
@@ -52,7 +52,9 @@ function nota() {
           modal.style.display = 'none';
         }
       });
-   
+      if (window.innerWidth <= 600) {
+            overlay.style.width = '0%';
+        }
 
     closeModal.addEventListener('click', function () {
         modal.style.display = 'none';
@@ -76,7 +78,7 @@ document.getElementById('todo').addEventListener('keydown', (e) => {
 function task() {
     let modalTodo = document.getElementById('modalTodo').value;
     let taskText = inputText.value.trim();
-    let resumeContent = document.getElementById('resumeId').value.trim();
+    let resumeContent = document.getElementById('notasText').value.trim();
 
     // Verificar se há texto na tarefa ou na entrada de notas
     if (taskText !== "" || resumeContent !== "") {
@@ -150,7 +152,7 @@ function task() {
 
         // Limpar campos
         inputText.value = '';
-        document.getElementById('resumeId').value = '';
+        document.getElementById('notasText').value = '';
         inputText.focus();
         inputAtive();
     } else {

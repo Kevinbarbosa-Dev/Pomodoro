@@ -17,7 +17,7 @@
 <body>
     <div class="center" id="center">
         <div class="menu">
-            <button class="nav-button" id="barra">
+            <button class="nav-button" id="barra" title="To-Do List">
                 <i class="fa-solid fa-bars fa-2x"></i>
             </button>
         </div>
@@ -30,18 +30,28 @@
                 </div>
                 <div id="task-container">
                     <ul id="tasks" class="task-content">
-
+                        <div class="task divResumeStart"><i class="checkbox"><i class="fa-regular fa-square"></i></i>
+                            <div class="containerTaskNew" style="align-items: center;">
+                                <li class="taskEdit"><span>tast</span></li>
+                                <div class="task-resume">
+                                    <p class="text-resume">iuo oo io ooouiou o tc7tc7u y ycu8c uc ucu ucu ycucuy cu ki
+                                        iu iu iyiuy iuiu iu iuo oo io ooouiou o tc7tc7u y ycu8c uc ucu ucu ycucuy cu ki
+                                        iu iu iyiuy iuiu iu iuo oo io ooouiou o tc7tc7u y ycu8c uc ucu ucu ycucuy cu ki
+                                        iu iu iyiuy iuiu iu</p>
+                                </div>
+                            </div><button class="trash-resume"><i class="fa-solid fa-trash"></i></button>
+                        </div>
                     </ul>
                 </div>
                 <div class="container-todo">
                     <div class="to-do-box">
                         <div class="input-icon-container">
-                        <input type="text" id="todo" class="to_do" placeholder="To-Do List" oninput="inputAtive()">
-                        <span class="fa-solid fa-pen" onclick="nota()"></span>
+                            <input type="text" id="todo" class="to_do" placeholder="To-Do List" oninput="inputAtive()">
+                            <span class="fa-solid fa-pen" onclick="nota()" id="openModal"></span>
                         </div>
                         <button class="adicionar" id="addOk" onclick="task()">Adicionar</button>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -49,25 +59,25 @@
         <div class="container">
             <div class="display">
                 <div class="pomodoro_break">
-                    <button class="pomodoro animate__animated" id="pomodoroid" onclick="pomodoro()">
+                    <button class="pomodoro animate__animated" id="pomodoroid" onclick="pomodoro()" title="Pomodoro Mode">
                         Pomodoro
                     </button>
 
-                    <button class="pomodoro animate__animated " id="break" onclick="descansar()">
+                    <button class="pomodoro animate__animated " id="break" onclick="descansar()" title="Break">
                         Break
                     </button>
                 </div>
                 <div class="itens">
-                    <button class="more-less" onclick="minus()" id="minusButton">
+                    <button class="more-less" onclick="minus()" id="minusButton" title="Minus">
                         <i class="fa-solid fa-circle-minus"></i>
                     </button>
                     <p id="tempo">00:00</p>
-                    <button class="more-less animate__animated" onclick="add()" id="addButton">
+                    <button class="more-less animate__animated" title="Add" onclick="add()" id="addButton">
                         <i class="fa-solid fa-circle-plus"></i>
                     </button>
                 </div>
                 <div class="board">
-                    <button class="play-pause" id="play" onclick="começar()">
+                    <button class="play-pause" title="play-pause" id="play" onclick="começar()">
                         <i class="fa-solid fa-play" id="icon"></i>
                     </button>
                 </div>
@@ -81,9 +91,17 @@
     <div class="modal" id="modal">
         <div class="modal-content">
             <span id="fecharModal" class="fa-solid fa-xmark"></span>
-            <input type="text" name="title" class="title" id="modalTodo" placeholder="Task" >
-            <textarea class="modalText" id="resumeId" placeholder="Notas..."></textarea>
+            <input type="text" name="title" class="title" id="modalTodo" placeholder="Task">
+            <textarea class="modalText" id="notasText" placeholder="Notas..."></textarea>
+            <div class="prioridade-container">
+                <select id="prioritySelect" class="priority-select">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                
             <button class="addModal" id="addModal">Adicionar</button>
+        </div>
         </div>
     </div>
     <script src="script.js"></script>

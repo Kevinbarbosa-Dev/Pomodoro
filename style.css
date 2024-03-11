@@ -149,14 +149,19 @@ button:hover {
     top: 0;
     left: 0;
 }
-
+#close:hover{
+    transition: 0.3s;
+    color:#998c7c ;
+}
 .nav-button {
 
     border: 0;
     cursor: pointer;
     color: #260F26;
 }
-
+.nav-button:hover{
+    color: #260f2683;
+}
 #overlay {
     width: 0%;
     height: 100%;
@@ -259,8 +264,22 @@ h3 {
 .task {
     display: flex;
     align-items: center;
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.63);
+    -webkit-box-shadow: -4px -3px 0px 3px rgba(0,0,0,0.75);
+    -moz-box-shadow: -4px -3px 0px 3px rgba(0,0,0,0.75);
+    box-shadow: -4px -4px 0px 3px tomato;
+    border-radius: 5px 0px 0px 0px;
 }
+
+/*
+estilo prioridade no overlay
+.task01{
+    display: flex;
+    align-items: center;
+    -webkit-box-shadow: -4px -3px 0px 3px rgba(0,0,0,0.75);
+    -moz-box-shadow: -4px -3px 0px 3px rgba(0, 0, 0, 0.75);
+    box-shadow: -7px -0px 0px 0px tomato;
+    
+}*/
 
 /*
  .img-banner{
@@ -276,9 +295,20 @@ h3 {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.63);
+    margin-left: 10px;
 
-}
+}/*
+estilo prioridade no overlay
+.task-content01{
+    position: relative;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}*/
 
 .task-content::before {
     content: '';
@@ -531,7 +561,22 @@ h3 {
     border: 1px solid rgba(255, 255, 255, 0.637);
     background-color: #121328;
     color: #E3B277;
-    margin-left: 80%;
+}
+.prioridade-container{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.prioridade-content{
+    background-color: black;
+    max-width: 100px;
+    list-style: none;
+    color: white;
+}
+.priority-select{
+    
+    
+    font-size: 18px;
 }
 
 
