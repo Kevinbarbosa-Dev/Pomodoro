@@ -23,7 +23,7 @@ body.descansar-bg {
     margin: 0;
     background-image: url(imagens/Player\ 2\ -\ gif\ animation.gif);
     display: block;
-
+    background-size: cover;
 }
 
 
@@ -331,10 +331,14 @@ estilo prioridade no overlay
     padding: 10px;
     color: #E3B277;
 }
+.remoEdit{
+    display: flex;
+    flex-direction: column;
+}
 
 .trash {
     font-size: 18px;
-    padding: 25px;
+    padding: 10px;
     color: #E3B277;
 }
 
@@ -349,6 +353,17 @@ estilo prioridade no overlay
     margin-top: 10px;
     padding: 13px;
     color: #E3B277;
+}
+.edit {
+    font-size: 18px;
+    padding: 10px;
+    color: #E3B277;
+}
+
+.edit:hover {
+    cursor: pointer;
+    color: #fbd4a26c;
+    transition: 0.3s;
 }
 
 
@@ -377,7 +392,7 @@ estilo prioridade no overlay
     color: #121328;
 }
 
-.fa-pen {
+.addNoteMoreDescription {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

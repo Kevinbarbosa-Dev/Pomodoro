@@ -12,9 +12,15 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    <!-- Adicione esses scripts no cabeçalho do seu arquivo HTML -->
+    
+
+
 </head>
 
 <body>
+    <div id="root"></div>
+
     <div class="center" id="center">
         <div class="menu">
             <button class="nav-button" id="barra" title="To-Do List">
@@ -47,7 +53,7 @@
                     <div class="to-do-box">
                         <div class="input-icon-container">
                             <input type="text" id="todo" class="to_do" placeholder="To-Do List" oninput="inputAtive()">
-                            <span class="fa-solid fa-pen" onclick="nota()" id="openModal"></span>
+                            <span class="fa-solid fa-pen addNoteMoreDescription" onclick="nota()" id="openModal"></span>
                         </div>
                         <button class="adicionar" id="addOk" onclick="task()">Adicionar</button>
                     </div>
@@ -59,7 +65,8 @@
         <div class="container">
             <div class="display">
                 <div class="pomodoro_break">
-                    <button class="pomodoro animate__animated" id="pomodoroid" onclick="pomodoro()" title="Pomodoro Mode">
+                    <button class="pomodoro animate__animated" id="pomodoroid" onclick="pomodoro()"
+                        title="Pomodoro Mode">
                         Pomodoro
                     </button>
 
@@ -99,11 +106,13 @@
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                 </select>
-                
-            <button class="addModal" id="addModal">Adicionar</button>
-        </div>
+
+                <button class="addModal" id="addModal">Adicionar</button>
+            </div>
         </div>
     </div>
+
+    
     <script src="script.js"></script>
 </body>
 

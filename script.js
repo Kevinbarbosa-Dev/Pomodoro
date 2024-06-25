@@ -1,10 +1,10 @@
-
+let overlay = document.getElementById('overlay');
 
 document.addEventListener('DOMContentLoaded', function () {
     let menuBtn = document.getElementById('barra');
-    let overlay = document.getElementById('overlay');
+
     let close = document.getElementById('close');
-    
+
     // se tela estiver em 600px, quando clicar em openModal o overlay fecha
     menuBtn.addEventListener('click', function () {
         if (window.innerWidth <= 600) {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     close.addEventListener('click', function () {
         overlay.style.width = '0%';
     });
-    
+
 });
 
 // criar bptão que abre opções, quando uma opção for selecionada ela é atribuida na task 
@@ -39,29 +39,34 @@ function nota() {
     let modalText = document.getElementById('notasText');
     let adicionar = document.getElementById('addOk');
     let addModal = document.getElementById('addModal');
+    if (window.innerWidth <= 980) {
+        overlay.style.width = "0%";
         modal.style.display = "flex";
-       inputText.value = "";
-       adicionar.style.display = "none";
-       addModal.addEventListener('click', function (){
+    } else {
+        modal.style.display = "flex";
+    }
+    inputText.value = "";
+    adicionar.style.display = "none";
+    addModal.addEventListener('click', function () {
         task();
         modalTodo.value = "";
-       }) 
+    })
 
-       document.addEventListener('click', function (event) {
+    document.addEventListener('click', function (event) {
         if (event.target === modal) {
-          modal.style.display = 'none';
+            modal.style.display = 'none';
         }
-      });
-      if (window.innerWidth <= 600) {
-            overlay.style.width = '0%';
-        }
+    });
+    if (window.innerWidth <= 600) {
+        overlay.style.width = '0%';
+    }
 
     closeModal.addEventListener('click', function () {
         modal.style.display = 'none';
         inputText.value = "";
         modalText.value = "";
         modalTodo.value = "";
-        
+
 
     });
 }
@@ -116,6 +121,13 @@ function task() {
         remove.onclick = function () {
             removeTask(taskDiv);
         };
+        let remoEdit = document.createElement("div");
+        remoEdit.className = "remoEdit";
+
+        let edit = document.createElement("button");
+        edit.innerHTML = '<i class="fa-solid fa-pen"></i>';
+        edit.classList.toggle("edit");
+
         angle.onclick = function () {
             span.classList.toggle("expanded");
             span.style.maxHeight = span.classList.contains("expanded") ? span.scrollHeight + "px" : "135px";
@@ -145,10 +157,16 @@ function task() {
         newTaskContainer.classList.add('containerTaskNew');
 
         // Adicionando elementos ao taskDiv
-        taskDiv.appendChild(checkbox);
-        taskDiv.appendChild(newTaskContainer);
-        taskDiv.appendChild(remove);
         taskList.appendChild(taskDiv);
+            
+        taskDiv.appendChild(newTaskContainer);
+            taskDiv.appendChild(checkbox);
+            taskDiv.appendChild(remove);
+        
+            taskDiv.appendChild(remoEdit);
+                remoEdit.appendChild(remove);
+                remoEdit.appendChild(edit);
+        
 
         // Limpar campos
         inputText.value = '';
@@ -184,7 +202,7 @@ function pomodoro() {
 }
 
 function descansar() {
-    minutes = 15;
+    minutes = 5;
     seconds = 0;
     enableButtons();
     document.body.classList.remove("pomodoro-bg");
@@ -213,7 +231,15 @@ function updateTimer() {
 
 function add() {
     if (!isRunning && minutes < 120) {
-        minutes += 15;
+        if (document.body.classList.contains("descansar-bg")) {
+            if (minutes + 5 <= 20) {
+                minutes += 5;
+            } else {
+                minutes = 20;
+            }
+        } else {
+            minutes += 15;
+        }
         seconds = 0;
         updateTimerDisplay();
     }
