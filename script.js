@@ -158,11 +158,9 @@ function task() {
 
         // Adicionando elementos ao taskDiv
         taskList.appendChild(taskDiv);
-            
-        taskDiv.appendChild(newTaskContainer);
             taskDiv.appendChild(checkbox);
-            taskDiv.appendChild(remove);
-        
+        taskDiv.appendChild(newTaskContainer);
+
             taskDiv.appendChild(remoEdit);
                 remoEdit.appendChild(remove);
                 remoEdit.appendChild(edit);
