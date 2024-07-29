@@ -213,7 +213,7 @@ button:hover {
     font-size: 18px;
     overflow: hidden;
     position: relative;
-    max-height: 135px;
+    height: 135px;
     transition: max-height 0.3s ease;
 
 }
@@ -225,10 +225,18 @@ button:hover {
     height: 100%;
     background: linear-gradient(transparent, #1213286e);
 }
+.task-resume.active .text-resume {
+    height: auto;
+}
+
+.task-resume.active .text-resume::before {
+    visibility: hidden;
+}
 
 .text-resumeOff {
     background: none;
 }
+
 
 .lista {
     width: 100%;
@@ -263,32 +271,14 @@ h3 {
 
 .task {
     display: flex;
-    align-items: center;
+    align-items: start;
     -webkit-box-shadow: -4px -3px 0px 3px rgba(0,0,0,0.75);
     -moz-box-shadow: -4px -3px 0px 3px rgba(0,0,0,0.75);
     box-shadow: -4px -4px 0px 3px tomato;
     border-radius: 5px 0px 0px 0px;
 }
 
-/*
-estilo prioridade no overlay
-.task01{
-    display: flex;
-    align-items: center;
-    -webkit-box-shadow: -4px -3px 0px 3px rgba(0,0,0,0.75);
-    -moz-box-shadow: -4px -3px 0px 3px rgba(0, 0, 0, 0.75);
-    box-shadow: -7px -0px 0px 0px tomato;
-    
-}*/
 
-/*
- .img-banner{
-    background-image: url(imgTask/Library\ Animation\ Background.jpg);
-    display: block;
-    background-size: cover;
-  }
-  
-  }*/
 .task-content {
     position: relative;
     padding: 0px;
@@ -297,18 +287,7 @@ estilo prioridade no overlay
     gap: 5px;
     margin-left: 10px;
 
-}/*
-estilo prioridade no overlay
-.task-content01{
-    position: relative;
-    padding: 0px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-left: 10px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-}*/
+}
 
 .task-content::before {
     content: '';
@@ -428,6 +407,7 @@ estilo prioridade no overlay
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.63);
     padding-left: 5px;
 }
+
 
 
 .task-resume {
@@ -568,7 +548,7 @@ estilo prioridade no overlay
     cursor: pointer;
 }
 
-.addModal {
+#addModal {
     font-family: ds_digital;
     padding: 10px;
     border-radius: 5px;
@@ -576,6 +556,7 @@ estilo prioridade no overlay
     border: 1px solid rgba(255, 255, 255, 0.637);
     background-color: #121328;
     color: #E3B277;
+    display: none;
 }
 .prioridade-container{
     display: flex;

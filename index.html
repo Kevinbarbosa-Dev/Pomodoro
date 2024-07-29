@@ -98,7 +98,7 @@
     <div class="modal" id="modal">
         <div class="modal-content">
             <span id="fecharModal" class="fa-solid fa-xmark"></span>
-            <input type="text" name="title" class="title" id="modalTodo" placeholder="Task">
+            <input type="text" name="title" class="title" id="modalTodo" placeholder="Task" oninput="actAddModal()">
             <textarea class="modalText" id="notasText" placeholder="Notas..."></textarea>
             <div class="prioridade-container">
                 <select id="prioritySelect" class="priority-select">
@@ -107,13 +107,14 @@
                     <option value="high">High</option>
                 </select>
 
-                <button class="addModal" id="addModal">Adicionar</button>
+                <button class="addModal" id="addModal" >Adicionar</button>
             </div>
         </div>
     </div>
 
     
-    <script src="script.js"></script>
+    <script src="./script/pomodoro/script.js"></script>
+    <script src="./script/To-do list/script.js"></script>
 </body>
 
 </html>
